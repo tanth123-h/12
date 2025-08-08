@@ -1,0 +1,289 @@
+/* General body and background */
+body {
+  margin: 0;
+  font-family: 'Segoe UI', Tahoma, sans-serif;
+  background: url('farm.jpg') no-repeat center center fixed; /* Background image added */
+  background-size: cover; /* Ensures the image covers the entire background */
+  display: flex;
+  flex-direction: column; /* Stacks header, video, and controls vertically */
+  height: 100vh;
+  color: #2e7d32;
+  overflow: hidden; /* Prevent scrolling if content exceeds viewport */
+}
+
+/* Header styling */
+header {
+  background: linear-gradient(to bottom, #2e7d32, #81c784); /* Dark to light green */
+  color: white;
+  padding: 15px 20px;
+  text-align: center;
+  font-size: 1.8rem;
+  font-weight: bold;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+  border-bottom-left-radius: 10px;
+  border-bottom-right-radius: 10px;
+}
+
+/* Main Content Area - uses flex to arrange controls, video, and data side-by-side */
+#main-content {
+  flex: 1; /* Allows it to take up available vertical space */
+  display: flex;
+  align-items: center; /* Vertically center items */
+  justify-content: center; /* Horizontally center content */
+  padding: 20px;
+  gap: 20px; /* Space between controls, video, and data display */
+  flex-wrap: wrap; /* Allow wrapping on smaller screens */
+}
+
+/* Left Controls (Start, Stop, Settings) */
+#left-controls {
+  display: flex;
+  flex-direction: column; /* Buttons stack vertically */
+  gap: 15px; /* Space between buttons */
+  background-color: white;
+  padding: 20px;
+  border-radius: 15px;
+  box-shadow: 0 5px 20px rgba(0,0,0,0.2);
+  align-items: center; /* Center buttons horizontally within their container */
+  min-width: 180px; /* Ensure some minimum width */
+}
+
+/* Video container */
+#video-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #000; /* Black background for video area */
+  border-radius: 15px;
+  box-shadow: 0 5px 20px rgba(0,0,0,0.3);
+  padding: 10px; /* Padding around the video itself */
+  width: 60%; /* Occupy a good portion of the width */
+  max-width: 700px; /* Max width for larger screens */
+  aspect-ratio: 16 / 9; /* Maintain 16:9 aspect ratio for video */
+  min-height: 200px; /* Ensure video container has height even if video not playing */
+  position: relative; /* For positioning error messages */
+}
+
+video {
+  width: 100%;
+  height: 100%;
+  border-radius: 10px; /* Slightly rounded corners for the video itself */
+  object-fit: cover; /* Ensure video covers the area without distortion */
+}
+
+/* Right Data Display Sidebar */
+#data-display-sidebar {
+  display: flex;
+  flex-direction: column; /* Data boxes stack vertically */
+  gap: 15px; /* Space between data boxes */
+  background-color: white;
+  padding: 20px;
+  border-radius: 15px;
+  box-shadow: 0 5px 20px rgba(0,0,0,0.2);
+  min-width: 180px; /* Ensure some minimum width */
+  align-items: flex-start; /* Align text to the left within the box */
+}
+
+.data-box {
+  text-align: left;
+  width: 100%;
+}
+
+.data-box h4 {
+  margin: 0 0 5px 0;
+  color: #388e3c; /* Darker green for titles */
+  font-size: 1.1rem;
+}
+
+.data-box p {
+  margin: 0;
+  font-size: 1.6rem;
+  font-weight: bold;
+  color: #2e7d32;
+}
+
+/* Controls section at the very bottom (for the พ่นยา button) */
+#bottom-spray-control {
+  background-color: white;
+  padding: 20px;
+  display: flex;
+  justify-content: center; /* Center the button horizontally */
+  align-items: center;
+  box-shadow: 0 -2px 10px rgba(0,0,0,0.1);
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+  margin-top: auto; /* Pushes this section to the very bottom */
+}
+
+/* Styling for all control buttons */
+.control-button {
+  color: white;
+  font-size: 1.5rem;
+  padding: 15px 30px;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: background 0.3s ease, transform 0.2s ease, box-shadow 0.2s ease;
+  min-width: 120px; /* Base min-width for Start, Stop, Settings */
+  text-align: center;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+}
+
+.control-button:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 6px 12px rgba(0,0,0,0.25);
+}
+
+.control-button:active {
+  transform: translateY(0);
+  box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+}
+
+/* Specific styles for Start button (Green) */
+#start-btn {
+  background: linear-gradient(to right, #4CAF50, #2E8B57); /* Green gradient */
+}
+#start-btn:hover {
+  background: linear-gradient(to right, #388E3C, #228B22);
+}
+
+/* Specific styles for Stop button (Red) */
+#stop-btn {
+  background: linear-gradient(to right, #F44336, #D32F2F); /* Red gradient */
+}
+#stop-btn:hover {
+  background: linear-gradient(to right, #E53935, #C62828);
+}
+
+/* Specific styles for Settings button (Gray) */
+#settings-btn {
+  background: linear-gradient(to right, #9E9E9E, #616161); /* Gray gradient */
+}
+#settings-btn:hover {
+  background: linear-gradient(to right, #757575, #424242);
+}
+
+/* Specific styles for "พ่นยา" button (Green and largest at the bottom) */
+.bottom-spray-button {
+  background: linear-gradient(to right, #4CAF50, #2E8B57); /* Green gradient */
+  font-size: 2.5rem; /* Larger font size */
+  padding: 30px 60px; /* Larger padding */
+  width: calc(100% - 40px); /* Full width minus controls padding */
+  max-width: 600px; /* Max width for consistency */
+}
+.bottom-spray-button:hover {
+  background: linear-gradient(to right, #388E3C, #228B22);
+}
+
+/* Messages for camera status and info */
+.camera-error, .camera-message {
+  padding: 20px;
+  border-radius: 10px;
+  text-align: center;
+  font-weight: bold;
+  position: absolute; /* Position over the video area */
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  top: 0;
+  left: 0;
+  box-sizing: border-box; /* Include padding in width/height */
+}
+.camera-error {
+  background-color: #f8d7da; /* Light red */
+  color: #721c24; /* Dark red */
+  border: 1px solid #f5c6cb;
+}
+.camera-message {
+  background-color: #d1ecf1; /* Light blue */
+  color: #0c5460; /* Dark blue */
+  border: 1px solid #bee5eb;
+}
+
+
+/* Responsive Design */
+@media (max-width: 1024px) {
+  #main-content {
+    flex-direction: column; /* Stack controls, video, and data vertically */
+    padding: 15px;
+    gap: 15px;
+  }
+
+  #left-controls, #data-display-sidebar {
+    flex-direction: row; /* Buttons/data boxes align horizontally on smaller screens */
+    flex-wrap: wrap;
+    justify-content: center;
+    width: 90%; /* Take more width */
+    padding: 15px;
+    gap: 10px;
+    min-width: unset;
+  }
+
+  .data-box {
+    flex: 1 1 auto; /* Allow data boxes to grow/shrink */
+    text-align: center; /* Center text in data boxes on smaller screens */
+  }
+
+  #video-container {
+    width: 90%;
+    max-width: 600px;
+    margin: 0; /* Remove margin as main-content already has padding */
+  }
+
+  .control-button {
+    font-size: 1.3rem;
+    padding: 12px 25px;
+    min-width: unset;
+    flex: 1 1 auto;
+  }
+
+  .bottom-spray-button {
+    font-size: 2rem;
+    padding: 20px 40px;
+    width: calc(100% - 30px);
+    max-width: 500px;
+  }
+}
+
+@media (max-width: 600px) {
+  header {
+    font-size: 1.5rem;
+    padding: 10px;
+  }
+
+  #main-content {
+    padding: 10px;
+    gap: 10px;
+  }
+
+  #left-controls, #data-display-sidebar {
+    padding: 10px;
+    gap: 8px;
+  }
+
+  .data-box h4 {
+    font-size: 1rem;
+  }
+  .data-box p {
+    font-size: 1.3rem;
+  }
+
+  #video-container {
+    width: 95%;
+    padding: 5px;
+  }
+
+  .control-button {
+    font-size: 1.1rem;
+    padding: 10px 20px;
+  }
+
+  .bottom-spray-button {
+    font-size: 1.8rem;
+    padding: 15px 30px;
+    width: calc(100% - 20px);
+    max-width: 400px;
+  }
+}

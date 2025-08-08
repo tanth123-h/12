@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>AgriTech Vision</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <!-- Header -->
+  <header>
+    <h2>เกษตรแม่นยำ (Precision Agriculture)</h2>
+    <h3>Agritech Vision</h3>
+  </header>
+
+  <!-- Main Content Area -->
+  <div id="main-content">
+    <!-- Left Controls (Start, Stop, Settings) -->
+    <div id="left-controls">
+      <button id="start-btn" class="control-button">Start</button>
+      <button id="stop-btn" class="control-button">Stop</button>
+      <button id="settings-btn" class="control-button">Settings</button>
+    </div>
+
+    <!-- Video Feed in the Middle -->
+    <div id="video-container">
+      <video id="video" autoplay playsinline></video>
+      <p id="camera-error-message" class="camera-message" style="display: none;">
+        Camera not found or access denied. Please check your camera and permissions.
+      </p>
+    </div>
+
+    <!-- Right Data Display -->
+    <div id="data-display-sidebar">
+      <div class="data-box">
+        <h4>ปริมาณยาที่ใช้:</h4>
+        <p id="spray-amount-display">0.0 ml</p>
+      </div>
+      <div class="data-box">
+        <h4>วัชพืชที่ตรวจพบ:</h4>
+        <p id="weed-count-display">0 จุด</p>
+      </div>
+      <div class="data-box">
+        <h4>พื้นที่สำรวจแล้ว:</h4>
+        <p id="area-display">0.0 ตร.ม.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Controls at the Bottom (พ่นยา button) -->
+  <div id="bottom-spray-control">
+    <button id="spray-btn" class="control-button bottom-spray-button">พ่นยา</button>
+  </div>
+
+  <script>
+    // Initial data values
+    let sprayAmount = 0.0;
+    let weedCount = 0;
+    let areaScanned = 0.0;
+
+    // Function to update display text
+    function updateDataDisplays() {
+      document.getElementById('spray-amount-display').textContent = `${sprayAmount.toFixed(1)} ml`;
+      document.getElementById('weed-count-display').textContent = `${weedCount} จุด`;
+      document.getElementById('area-display').textContent = `${areaScanned.toFixed(1)} ตร.ม.`;
+    }
+
+    // Access camera for real-time feed
+    async function startVideoFeed() {
+      const videoElement = document.getElementById('video');
+      const errorMessageElement = document.getElementById('camera-error-message');
+
+      try {
+        const stream = await navigator.mediaDevices.getUserMedia({ video: true });
+        videoElement.srcObject = stream;
+        videoElement.style.display = 'block'; // Show video element
+        errorMessageElement.style.display = 'none'; // Hide error message
+        // Reset data when video starts
+        sprayAmount = 0.0;
+        weedCount = 0;
+        areaScanned = 0.0;
+        updateDataDisplays();
+      } catch (error) {
+        console.error("Camera access error:", error);
+        videoElement.style.display = 'none'; // Hide video element
+        errorMessageElement.textContent = 'Camera not found or access denied. Please check your camera and permissions.';
+        errorMessageElement.style.display = 'block'; // Show error message
+        errorMessageElement.classList.remove('camera-message');
+        errorMessageElement.classList.add('camera-error');
+      }
+    }
+
+    // Initial call to start video feed when the page loads
+    startVideoFeed();
+    updateDataDisplays(); // Call to set initial display values
+
+    // Event Listeners for the buttons
+    document.getElementById('start-btn').addEventListener('click', () => {
+      console.log("Start button clicked!");
+      startVideoFeed(); // Ensure video is running when "Start" is pressed
+    });
+
+    document.getElementById('stop-btn').addEventListener('click', () => {
+      console.log("Stop button clicked!");
+      const videoElement = document.getElementById('video');
+      const errorMessageElement = document.getElementById('camera-error-message');
+
+      if (videoElement.srcObject) {
+        videoElement.srcObject.getTracks().forEach(track => track.stop());
+        videoElement.srcObject = null; // Clear the stream
+        videoElement.style.display = 'none'; // Hide video element
+        errorMessageElement.textContent = 'Video stream stopped.';
+        errorMessageElement.style.display = 'block'; // Show stopped message
+        errorMessageElement.classList.remove('camera-error');
+        errorMessageElement.classList.add('camera-message');
+      } else {
+        errorMessageElement.textContent = 'No video stream to stop.';
+        errorMessageElement.style.display = 'block';
+        errorMessageElement.classList.remove('camera-error');
+        errorMessageElement.classList.add('camera-message');
+      }
+    });
+
+    document.getElementById('settings-btn').addEventListener('click', () => {
+      console.log("Settings button clicked!");
+      // Add logic for opening settings
+      // For demonstration, let's increment some values
+      sprayAmount += 0.5;
+      weedCount += 1;
+      areaScanned += 0.1;
+      updateDataDisplays();
+    });
+
+    document.getElementById('spray-btn').addEventListener('click', () => {
+      console.log("พ่นยา button clicked!");
+      // Logic for spraying action - could increment spray amount here
+      sprayAmount += 1.0; // Example: 1.0 ml per spray
+      updateDataDisplays();
+    });
+  </script>
+</body>
+</html>
